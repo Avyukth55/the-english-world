@@ -85,6 +85,21 @@ footer { background:#102b28; color:rgba(255,250,240,.75); padding:28px; }
 body.editing .edit-hint { display:block; }
 body.editing [data-editable="true"] { outline:1px dashed #b66a3b; outline-offset:3px; cursor:text; }
 body.editing [data-editable="true"]:focus { outline:2px solid #a64f38; }
+.destination { margin-top:48px; scroll-margin-top:24px; }
+.destination-intro { max-width:760px; color:#626d65; line-height:1.65; font-size:16px; }
+.destination-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:20px; }
+.destination-card { background:var(--paper); border:1px solid var(--line); padding:24px; }
+.destination-card h3 { margin:0 0 10px; font:700 22px var(--site-font-heading); }
+.destination-card p { color:#626d65; line-height:1.55; }
+.pill-label { color:var(--accent); font:10px var(--site-font-heading); letter-spacing:.15em; text-transform:uppercase; }
+.game-button { border:0; background:var(--site-primary); color:var(--site-on-primary); padding:11px 15px; cursor:pointer; font:11px var(--site-font-heading); letter-spacing:.1em; text-transform:uppercase; }
+.game-options { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+.game-options button { border:1px solid var(--line); background:#f4f0e7; color:#202a27; padding:10px 13px; cursor:pointer; }
+.game-options button:hover { border-color:var(--accent); }
+.game-feedback { min-height:24px; color:var(--accent); font-weight:bold; }
+.gazette-entry { border-top:1px solid var(--line); padding:18px 0; }
+.gazette-entry h3 { margin:5px 0; font:700 22px var(--site-font-heading); }
+.gazette-entry p { margin:0; color:#626d65; line-height:1.55; }
 @media (max-width:760px) {
  .brand { align-items:flex-start; flex-direction:column; padding-top:30px; }
  .brand-sub { max-width:520px; }
@@ -98,6 +113,7 @@ body.editing [data-editable="true"]:focus { outline:2px solid #a64f38; }
  .topline, .brand, nav, .hero, .content { padding-left:18px; padding-right:18px; }
  .topline { font-size:9px; }
  .hero-side, .grid-three { grid-template-columns:1fr; }
+ .destination-grid { grid-template-columns:1fr; }
  .hero-main { min-height:330px; }
  .section-head { align-items:flex-start; flex-direction:column; gap:7px; }
  .footer-inner { align-items:flex-start; flex-direction:column; }
@@ -114,7 +130,7 @@ body.editing [data-editable="true"]:focus { outline:2px solid #a64f38; }
     <p class="brand-sub" data-editable="true">A little corner of the school where language gets to play, stories find a home, and curiosity is always in session.</p>
   </div>
   <div class="nav-wrap"><nav>
-    <a href="#explore">Explore</a><a href="#writers">Writers' Corner</a><a href="#gazette">The Gazette</a><a href="#puzzles">Puzzles & Play</a><a href="#about">About</a>
+    <a href="#explore">Explore</a><a href="#writers-hub">Writers' Corner</a><a href="#gazette-page">The Gazette</a><a href="#puzzles-arcade">Puzzles & Play</a><a href="#about">About</a>
   </nav></div>
 </header>
 <div class="edit-hint">Edit mode is on. Select any outlined text to change it. Your changes are saved in this browser on this device.</div>
@@ -136,11 +152,11 @@ body.editing [data-editable="true"]:focus { outline:2px solid #a64f38; }
 <section class="content" id="explore">
   <div class="section-head"><h2>Explore the World</h2><span>Pick a door. Follow your curiosity.</span></div>
   <div class="grid-three">
-    <article class="feature" id="writers"><div class="number">01 / CREATE</div><div><h3 data-editable="true">Writers' Corner</h3><p data-editable="true">Stories, poems, flash fiction and little pieces of imagination from students across the school.</p></div><a href="#submission">Send a submission ↗</a></article>
-    <article class="feature" id="puzzles"><div class="number">02 / PLAY</div><div><h3 data-editable="true">Puzzles & Play</h3><p data-editable="true">Riddles, word challenges, literary detective work and games that make you think sideways.</p></div><a href="#challenge">Try the challenge ↗</a></article>
+    <article class="feature"><div class="number">01 / CREATE</div><div><h3 data-editable="true">Writers' Corner</h3><p data-editable="true">Stories, poems, flash fiction and little pieces of imagination from students across the school.</p></div><a href="#writers-hub">Enter Writers' Corner ↗</a></article>
+    <article class="feature"><div class="number">02 / PLAY</div><div><h3 data-editable="true">Puzzles & Play</h3><p data-editable="true">Riddles, word challenges, literary detective work and games that make you think sideways.</p></div><a href="#puzzles-arcade">Enter the arcade ↗</a></article>
     <article class="feature"><div class="number">03 / DISCOVER</div><div><h3 data-editable="true">The Word Vault</h3><p data-editable="true">Unusual vocabulary, idioms, curious expressions and the stories hiding inside words.</p></div><a href="#word-vault">Open the vault ↗</a></article>
     <article class="feature"><div class="number">04 / READ</div><div><h3 data-editable="true">The Bookshelf</h3><p data-editable="true">Student recommendations, short reviews and books that stay with you long after the last page.</p></div><a href="#bookshelf">Browse the shelf ↗</a></article>
-    <article class="feature" id="gazette"><div class="number">05 / KEEP UP</div><div><h3 data-editable="true">The Literary Gazette</h3><p data-editable="true">Council announcements, event highlights, competition updates and news from the world of words.</p></div><a href="#latest">Read the latest ↗</a></article>
+    <article class="feature"><div class="number">05 / KEEP UP</div><div><h3 data-editable="true">The Literary Gazette</h3><p data-editable="true">Council announcements, event highlights, competition updates and news from the world of words.</p></div><a href="#gazette-page">Read the Gazette ↗</a></article>
     <article class="feature"><div class="number">06 / LOOK CLOSER</div><div><h3 data-editable="true">Comics & Curiosities</h3><p data-editable="true">Illustrated ideas, language oddities, puns and the wonderfully unexpected.</p></div><a href="#latest">Explore more ↗</a></article>
   </div>
   <div class="lower-grid" id="latest">
@@ -162,6 +178,33 @@ body.editing [data-editable="true"]:focus { outline:2px solid #a64f38; }
   <section class="column-panel" id="submission" style="margin-top:16px">
     <div class="section-head"><h2>Share something with us</h2><span>Submissions desk</span></div>
     <p style="color:#667069;line-height:1.6;margin:0" data-editable="true">Have a story, poem, comic, book review or idea for the site? The submission route will be added once the Literary Council confirms its school contact address and submission guidelines. Until then, keep your draft ready.</p>
+  </section>
+  <section class="destination" id="writers-hub">
+    <div class="section-head"><h2>Writers' Corner</h2><span>Where student voices find a home</span></div>
+    <p class="destination-intro">A space for original stories, poems, flash fiction, reviews and experiments with language. Every great piece starts with someone deciding to share it.</p>
+    <div class="destination-grid">
+      <article class="destination-card"><span class="pill-label">01 / Fiction & poetry</span><h3>Stories worth sharing</h3><p>Look out for student fiction, poems and short creative pieces in upcoming editions. Submissions will be featured after review by the Literary Council.</p></article>
+      <article class="destination-card"><span class="pill-label">02 / The submission desk</span><h3>Have something to contribute?</h3><p>Prepare your original work with a title and a short author note. The council will publish submission instructions and its approved school contact route here.</p><a class="text-link" style="color:var(--accent)" href="#submission">Submission information ↗</a></article>
+    </div>
+  </section>
+  <section class="destination" id="gazette-page">
+    <div class="section-head"><h2>The Literary Gazette</h2><span>News, notes & notices</span></div>
+    <p class="destination-intro">The Literary Council's publication desk: a home for event reports, competition announcements, interviews and updates from our school literary community.</p>
+    <article class="destination-card">
+      <div class="gazette-entry"><span class="pill-label">Editor's note</span><h3>A new chapter begins</h3><p>The Literary Gazette is being prepared for its first set of school-approved updates. Check back for council news, student features and competition coverage.</p></div>
+      <div class="gazette-entry"><span class="pill-label">Coming soon</span><h3>Stories from around the school</h3><p>Future editions will bring together student perspectives, literary discoveries and highlights from council activities.</p></div>
+      <div class="gazette-entry"><span class="pill-label">Get involved</span><h3>Pitch an article</h3><p>Have an idea for an interview, review or feature? Prepare a short pitch for the Literary Council. Publication details will be added once the submission process is confirmed.</p></div>
+    </article>
+  </section>
+  <section class="destination" id="puzzles-arcade">
+    <div class="section-head"><h2>Puzzles & Play</h2><span>Think. Decode. Discover.</span></div>
+    <p class="destination-intro">Welcome to the literary arcade. Try a quick vocabulary challenge, test your instincts and see how well you know the world of words.</p>
+    <div class="destination-grid">
+      <article class="destination-card"><span class="pill-label">Game 01 / Vocabulary</span><h3>What does “ephemeral” mean?</h3><p>Choose the closest meaning.</p><div class="game-options"><button type="button" data-answer="wrong" data-game="vocab">Difficult to understand</button><button type="button" data-answer="right" data-game="vocab">Lasting a very short time</button><button type="button" data-answer="wrong" data-game="vocab">Full of energy</button></div><p class="game-feedback" id="vocab-feedback" aria-live="polite"></p></article>
+      <article class="destination-card"><span class="pill-label">Game 02 / Real or Rubbish?</span><h3>Can a pangram use every letter?</h3><p>A pangram is a sentence that contains every letter of the alphabet at least once. Is that real or rubbish?</p><div class="game-options"><button type="button" data-answer="right" data-game="pangram">Real</button><button type="button" data-answer="wrong" data-game="pangram">Rubbish</button></div><p class="game-feedback" id="pangram-feedback" aria-live="polite"></p></article>
+      <article class="destination-card"><span class="pill-label">Game 03 / Word connections</span><h3>Which word doesn't belong?</h3><p>Sonnet · Haiku · Metaphor · Limerick</p><div class="game-options"><button type="button" data-answer="right" data-game="connection">Metaphor</button><button type="button" data-answer="wrong" data-game="connection">Sonnet</button><button type="button" data-answer="wrong" data-game="connection">Haiku</button><button type="button" data-answer="wrong" data-game="connection">Limerick</button></div><p class="game-feedback" id="connection-feedback" aria-live="polite"></p></article>
+      <article class="destination-card"><span class="pill-label">Game 04 / Literary detective</span><h3>Find the figure of speech</h3><p>“The classroom was a zoo.” Which device is being used?</p><div class="game-options"><button type="button" data-answer="wrong" data-game="device">Simile</button><button type="button" data-answer="right" data-game="device">Metaphor</button><button type="button" data-answer="wrong" data-game="device">Alliteration</button></div><p class="game-feedback" id="device-feedback" aria-live="polite"></p></article>
+    </div>
   </section>
   <section class="newsletter" id="about"><div><h2 data-editable="true">This world is better with your words in it.</h2><p data-editable="true">Write something. Share something. Discover something. The next page could be yours.</p></div><a href="#submission">Get involved ↗</a></section>
 </section>
@@ -193,6 +236,14 @@ toggle.addEventListener('click', () => {
   if (!editing) saveEdits();
 });
 editable.forEach(el => el.addEventListener('input', saveEdits));
+document.querySelectorAll('[data-game]').forEach(button => {
+  button.addEventListener('click', () => {
+    const game = button.dataset.game;
+    const feedback = document.getElementById(game + '-feedback');
+    const correct = button.dataset.answer === 'right';
+    feedback.textContent = correct ? 'Correct! Nicely done.' : 'Not quite — give it another try.';
+  });
+});
 </script>
 </body>
 </html>
