@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#142d2b">
+<title>The English World — A place for words</title>
+<style>
+:root {
+  --site-primary: #173c38;
+  --site-on-primary: #fffaf0;
+  --site-secondary: #d8a85d;
+  --site-on-secondary: #20180d;
+  --site-background: #f4f0e7;
+  --site-on-background: #202a27;
+  --site-font-body: Georgia, 'Times New Roman', serif;
+  --site-font-heading: 'Trebuchet MS', Arial, sans-serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  --paper: #fffdf7;
+  --muted: #68736c;
+  --line: #ded9cc;
+  --accent: #a64f38;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--site-background); color: var(--site-on-background); font-family: var(--site-font-body); }
+#app { min-height: 100vh; width: 100%; background-color: light-dark(var(--site-background), #18201e); color: light-dark(var(--site-on-background), #f3efe5); border-radius: 0; overflow: hidden; }
+.site-header { background: var(--site-primary); color: var(--site-on-primary); position: relative; isolation: isolate; }
+.topline { display:flex; align-items:center; justify-content:space-between; max-width:1180px; margin:auto; padding:18px 28px; border-bottom:1px solid rgba(255,250,240,.22); font: 11px var(--site-font-heading); letter-spacing:.16em; text-transform:uppercase; }
+.brand { max-width:1180px; margin:auto; padding:38px 28px 30px; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; }
+.brand-kicker { color:var(--site-secondary); font:12px var(--site-font-heading); letter-spacing:.22em; text-transform:uppercase; margin:0 0 12px; }
+h1 { font: 700 clamp(42px,7vw,82px)/.92 var(--site-font-heading); letter-spacing:-.065em; margin:0; }
+.brand-sub { max-width:310px; color:rgba(255,250,240,.78); font-size:16px; line-height:1.5; margin:0 0 5px; }
+.nav-wrap { border-top:1px solid rgba(255,250,240,.22); }
+nav { max-width:1180px; margin:auto; display:flex; gap:26px; padding:14px 28px; overflow-x:auto; white-space:nowrap; }
+nav a { color:var(--site-on-primary); text-decoration:none; font:11px var(--site-font-heading); letter-spacing:.14em; text-transform:uppercase; opacity:.85; }
+nav a:hover { color:var(--site-secondary); opacity:1; }
+.hero { max-width:1180px; margin:auto; padding:46px 28px 42px; display:grid; grid-template-columns:1.25fr .75fr; gap:26px; align-items:stretch; }
+.hero-main { min-height:300px; padding:clamp(25px,4vw,48px); background:var(--site-secondary); color:#241b10; border-radius:calc(4px * var(--site-radius-scale)); display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; }
+.hero-main:after { content:'“'; position:absolute; right:22px; bottom:-100px; font:300 300px Georgia; color:rgba(32,24,13,.09); pointer-events:none; }
+.eyebrow { font:11px var(--site-font-heading); letter-spacing:.18em; text-transform:uppercase; }
+.hero-main h2 { max-width:620px; font:700 clamp(34px,5vw,58px)/1.02 var(--site-font-heading); letter-spacing:-.05em; margin:25px 0 18px; position:relative; z-index:1; }
+.hero-main p { max-width:470px; line-height:1.55; font-size:17px; margin:0; position:relative; z-index:1; }
+.text-link { display:inline-flex; gap:10px; align-items:center; margin-top:26px; color:inherit; font:12px var(--site-font-heading); letter-spacing:.12em; text-transform:uppercase; text-decoration:none; border-bottom:1px solid currentColor; padding-bottom:6px; width:max-content; position:relative; z-index:1; }
+.hero-side { display:grid; grid-template-rows:1fr 1fr; gap:14px; }
+.note-card { padding:25px; background:var(--paper); border:1px solid var(--line); display:flex; flex-direction:column; justify-content:space-between; min-height:140px; }
+.note-card.dark { background:#e5e8dc; }
+.note-label { color:var(--accent); font:10px var(--site-font-heading); letter-spacing:.18em; text-transform:uppercase; }
+.note-card h3 { font:700 25px/1.1 var(--site-font-heading); margin:16px 0 8px; letter-spacing:-.03em; }
+.note-card p { color:#5e6861; margin:0; line-height:1.45; font-size:15px; }
+.content { max-width:1180px; margin:auto; padding:0 28px 70px; }
+.section-head { display:flex; align-items:baseline; justify-content:space-between; gap:20px; border-bottom:1px solid var(--line); padding:12px 0 15px; margin:0 0 22px; }
+.section-head h2 { font:700 calc(25px * var(--site-heading-scale))/1.1 var(--site-font-heading); letter-spacing:-.035em; margin:0; }
+.section-head span { color:var(--muted); font:10px var(--site-font-heading); letter-spacing:.15em; text-transform:uppercase; }
+.grid-three { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.feature { background:var(--paper); border:1px solid var(--line); min-height:245px; padding:24px; display:flex; flex-direction:column; justify-content:space-between; transition:transform .2s ease, box-shadow .2s ease; }
+.feature:hover { transform:translateY(-3px); box-shadow:0 12px 26px rgba(36,42,35,.08); }
+.feature .number { color:#a2a99d; font:12px var(--site-font-heading); }
+.feature h3 { font:700 26px/1.08 var(--site-font-heading); letter-spacing:-.04em; margin:25px 0 10px; }
+.feature p { color:#626d65; line-height:1.5; font-size:15px; margin:0; }
+.feature a { margin-top:22px; color:var(--accent); text-decoration:none; font:11px var(--site-font-heading); letter-spacing:.14em; text-transform:uppercase; }
+.lower-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:16px; margin-top:48px; }
+.column-panel { background:var(--paper); border:1px solid var(--line); padding:26px; }
+.column-panel h3 { font:700 27px var(--site-font-heading); letter-spacing:-.04em; margin:0 0 20px; }
+.entry { display:grid; grid-template-columns:74px 1fr; gap:15px; padding:15px 0; border-top:1px solid var(--line); }
+.entry-date { color:var(--accent); font:10px/1.5 var(--site-font-heading); letter-spacing:.1em; text-transform:uppercase; }
+.entry h4 { margin:0 0 5px; font:700 18px var(--site-font-heading); }
+.entry p { color:#667069; margin:0; font-size:14px; line-height:1.45; }
+.quote-panel { background:#e5e8dc; padding:30px; display:flex; flex-direction:column; justify-content:space-between; min-height:260px; }
+.quote-mark { font:80px/.6 Georgia; color:#a64f38; }
+.quote-panel blockquote { font:italic 26px/1.25 Georgia; margin:20px 0; }
+.quote-panel small { color:#657068; font:10px var(--site-font-heading); letter-spacing:.14em; text-transform:uppercase; }
+.newsletter { margin-top:48px; padding:34px; background:var(--site-primary); color:var(--site-on-primary); display:flex; align-items:center; justify-content:space-between; gap:25px; }
+.newsletter h2 { font:700 30px var(--site-font-heading); margin:0 0 8px; letter-spacing:-.04em; }
+.newsletter p { color:rgba(255,250,240,.75); margin:0; line-height:1.5; }
+.newsletter a { flex-shrink:0; color:#241b10; background:var(--site-secondary); text-decoration:none; padding:14px 18px; font:11px var(--site-font-heading); letter-spacing:.12em; text-transform:uppercase; }
+footer { background:#102b28; color:rgba(255,250,240,.75); padding:28px; }
+.footer-inner { max-width:1180px; margin:auto; display:flex; align-items:center; justify-content:space-between; gap:20px; font:10px var(--site-font-heading); letter-spacing:.12em; text-transform:uppercase; }
+.edit-toggle { border:1px solid rgba(255,250,240,.45); background:transparent; color:var(--site-on-primary); padding:9px 12px; cursor:pointer; font:10px var(--site-font-heading); letter-spacing:.1em; text-transform:uppercase; }
+.edit-toggle.active { background:var(--site-secondary); color:#241b10; border-color:var(--site-secondary); }
+.edit-hint { display:none; background:#fff3cf; color:#43351a; text-align:center; padding:10px 18px; font:12px var(--site-font-heading); }
+body.editing .edit-hint { display:block; }
+body.editing [data-editable="true"] { outline:1px dashed #b66a3b; outline-offset:3px; cursor:text; }
+body.editing [data-editable="true"]:focus { outline:2px solid #a64f38; }
+@media (max-width:760px) {
+ .brand { align-items:flex-start; flex-direction:column; padding-top:30px; }
+ .brand-sub { max-width:520px; }
+ .hero { grid-template-columns:1fr; padding-top:28px; }
+ .hero-side { grid-template-columns:1fr 1fr; grid-template-rows:none; }
+ .grid-three { grid-template-columns:1fr 1fr; }
+ .lower-grid { grid-template-columns:1fr; }
+ .newsletter { align-items:flex-start; flex-direction:column; }
+}
+@media (max-width:480px) {
+ .topline, .brand, nav, .hero, .content { padding-left:18px; padding-right:18px; }
+ .topline { font-size:9px; }
+ .hero-side, .grid-three { grid-template-columns:1fr; }
+ .hero-main { min-height:330px; }
+ .section-head { align-items:flex-start; flex-direction:column; gap:7px; }
+ .footer-inner { align-items:flex-start; flex-direction:column; }
+ .newsletter { padding:25px; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+<header class="site-header">
+  <div class="topline"><span>School Literary Council presents</span><span>A journal of words, ideas & imagination</span></div>
+  <div class="brand">
+    <div><p class="brand-kicker" data-editable="true">Read. Write. Wonder.</p><h1 data-editable="true">The English<br>World.</h1></div>
+    <p class="brand-sub" data-editable="true">A little corner of the school where language gets to play, stories find a home, and curiosity is always in session.</p>
+  </div>
+  <div class="nav-wrap"><nav>
+    <a href="#explore">Explore</a><a href="#writers">Writers' Corner</a><a href="#gazette">The Gazette</a><a href="#puzzles">Puzzles & Play</a><a href="#about">About</a>
+  </nav></div>
+</header>
+<div class="edit-hint">Edit mode is on. Select any outlined text to change it. Your changes are saved in this browser on this device.</div>
+<main>
+<section class="hero">
+  <article class="hero-main">
+    <div class="eyebrow" data-editable="true">The front page · Issue 01</div>
+    <div><h2 data-editable="true">Words are doors.<br>Come see where they lead.</h2><p data-editable="true">Welcome to The English World — a place for curious minds, brave drafts, strange words, clever games and stories worth sharing.</p><a class="text-link" href="#explore">Step inside <span>↗</span></a></div>
+  </article>
+  <div class="hero-side">
+    <article class="note-card">
+      <div class="note-label">Word of the day</div><div><h3 data-editable="true">Petrichor</h3><p data-editable="true">The pleasant, earthy scent after rain. A word that sounds almost as lovely as the thing itself.</p></div>
+    </article>
+    <article class="note-card dark">
+      <div class="note-label">A thought to keep</div><div><h3 data-editable="true">“The first draft is just you telling yourself the story.”</h3><p data-editable="true">A reminder that every good piece begins somewhere.</p></div>
+    </article>
+  </div>
+</section>
+<section class="content" id="explore">
+  <div class="section-head"><h2>Explore the World</h2><span>Pick a door. Follow your curiosity.</span></div>
+  <div class="grid-three">
+    <article class="feature" id="writers"><div class="number">01 / CREATE</div><div><h3 data-editable="true">Writers' Corner</h3><p data-editable="true">Stories, poems, flash fiction and little pieces of imagination from students across the school.</p></div><a href="#submission">Send a submission ↗</a></article>
+    <article class="feature" id="puzzles"><div class="number">02 / PLAY</div><div><h3 data-editable="true">Puzzles & Play</h3><p data-editable="true">Riddles, word challenges, literary detective work and games that make you think sideways.</p></div><a href="#challenge">Try the challenge ↗</a></article>
+    <article class="feature"><div class="number">03 / DISCOVER</div><div><h3 data-editable="true">The Word Vault</h3><p data-editable="true">Unusual vocabulary, idioms, curious expressions and the stories hiding inside words.</p></div><a href="#word-vault">Open the vault ↗</a></article>
+    <article class="feature"><div class="number">04 / READ</div><div><h3 data-editable="true">The Bookshelf</h3><p data-editable="true">Student recommendations, short reviews and books that stay with you long after the last page.</p></div><a href="#bookshelf">Browse the shelf ↗</a></article>
+    <article class="feature" id="gazette"><div class="number">05 / KEEP UP</div><div><h3 data-editable="true">The Literary Gazette</h3><p data-editable="true">Council announcements, event highlights, competition updates and news from the world of words.</p></div><a href="#latest">Read the latest ↗</a></article>
+    <article class="feature"><div class="number">06 / LOOK CLOSER</div><div><h3 data-editable="true">Comics & Curiosities</h3><p data-editable="true">Illustrated ideas, language oddities, puns and the wonderfully unexpected.</p></div><a href="#latest">Explore more ↗</a></article>
+  </div>
+  <div class="lower-grid" id="latest">
+    <section class="column-panel">
+      <div class="section-head"><h2>From the noticeboard</h2><span>Fresh from the council</span></div>
+      <div class="entry"><div class="entry-date">Coming<br>soon</div><div><h4 data-editable="true">Your words belong here.</h4><p data-editable="true">The Writers' Corner is being prepared for student submissions. Bring us your stories, poems, reviews and experiments.</p></div></div>
+      <div class="entry"><div class="entry-date">Explore<br>today</div><div><h4 data-editable="true">A new word is waiting.</h4><p data-editable="true">Visit the Word Vault and collect a new expression for your everyday vocabulary.</p></div></div>
+      <div class="entry"><div class="entry-date">Stay<br>curious</div><div><h4 data-editable="true">More puzzles on the way.</h4><p data-editable="true">Keep an eye out for literary challenges, quick quizzes and mysteries to unravel.</p></div></div>
+    </section>
+    <aside class="quote-panel" id="challenge">
+      <div><div class="quote-mark">“</div><blockquote data-editable="true">A word after a word after a word is power.</blockquote></div>
+      <small data-editable="true">Margaret Atwood · A little literary inspiration</small>
+    </aside>
+  </div>
+  <section class="lower-grid" style="margin-top:16px" id="word-vault">
+    <div class="column-panel"><div class="section-head"><h2>Word Vault</h2><span>Small words, big worlds</span></div><div class="entry"><div class="entry-date">IDIOM</div><div><h4 data-editable="true">A blessing in disguise</h4><p data-editable="true">Something that seems unfortunate at first but turns out to have a good result.</p></div></div><div class="entry"><div class="entry-date">WORD</div><div><h4 data-editable="true">Ephemeral</h4><p data-editable="true">Lasting for a very short time; fleeting.</p></div></div></div>
+    <div class="column-panel" id="bookshelf"><div class="section-head"><h2>On the Bookshelf</h2><span>Reader recommendations</span></div><p style="color:#667069;line-height:1.6;margin:0" data-editable="true">Have a book you can't stop thinking about? Send us a short review: tell us what makes it special, who might enjoy it, and why it deserves a place on this shelf.</p><a class="text-link" style="color:var(--accent)" href="#submission">Recommend a book ↗</a></div>
+  </section>
+  <section class="column-panel" id="submission" style="margin-top:16px">
+    <div class="section-head"><h2>Share something with us</h2><span>Submissions desk</span></div>
+    <p style="color:#667069;line-height:1.6;margin:0" data-editable="true">Have a story, poem, comic, book review or idea for the site? The submission route will be added once the Literary Council confirms its school contact address and submission guidelines. Until then, keep your draft ready.</p>
+  </section>
+  <section class="newsletter" id="about"><div><h2 data-editable="true">This world is better with your words in it.</h2><p data-editable="true">Write something. Share something. Discover something. The next page could be yours.</p></div><a href="#submission">Get involved ↗</a></section>
+</section>
+</main>
+<footer><div class="footer-inner"><span>© The English World · School Literary Council</span><span data-editable="true">Made for readers, writers & wonderers.</span><button class="edit-toggle" id="editToggle" type="button">✎ Edit this page</button></div></footer>
+</div>
+<script>
+const toggle = document.getElementById('editToggle');
+const editable = [...document.querySelectorAll('[data-editable="true"]')];
+const storageKey = 'english-world-edits-v1';
+function restoreEdits() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+    editable.forEach((el, i) => { if (typeof saved[i] === 'string') el.innerHTML = saved[i]; });
+  } catch (e) { /* Start with the authored copy if local storage is unavailable. */ }
+}
+function saveEdits() {
+  const saved = {};
+  editable.forEach((el, i) => { saved[i] = el.innerHTML; });
+  try { localStorage.setItem(storageKey, JSON.stringify(saved)); } catch (e) { /* Editing still works for this session. */ }
+}
+restoreEdits();
+toggle.addEventListener('click', () => {
+  const editing = !document.body.classList.contains('editing');
+  document.body.classList.toggle('editing', editing);
+  editable.forEach(el => { el.contentEditable = editing ? 'true' : 'false'; el.spellcheck = true; });
+  toggle.classList.toggle('active', editing);
+  toggle.textContent = editing ? '✓ Finish editing' : '✎ Edit this page';
+  if (!editing) saveEdits();
+});
+editable.forEach(el => el.addEventListener('input', saveEdits));
+</script>
+</body>
+</html>
