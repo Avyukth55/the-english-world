@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The English World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,700&amp;family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+<style id="site-style">
+/* Layout idea: a lively school magazine. Ink-blue masthead band, letter-tile motifs, sections stacked on a cool paper ground. */
+:root{
+  --paper:#f3f5f0;
+  --card:#ffffff;
+  --ink:#16213b;
+  --muted:#5a6378;
+  --line:#d9ded4;
+  --accent:#e8a317;   /* marigold */
+  --accent-ink:#2a1c00;
+  --teal:#1d7466;
+  --coral:#d9502c;
+  --tile:#f8e7b5;
+  --tile-edge:#d7b55c;
+  --band:#16213b;
+  --band-ink:#f3f5f0;
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
+  --body:"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#10151f; --card:#18202e; --ink:#e9ecf3; --muted:#a2abbd; --line:#2b3546;
+    --accent:#f1b43a; --accent-ink:#1d1300; --teal:#4fb7a6; --coral:#f0784f;
+    --tile:#3a3220; --tile-edge:#8a7134; --band:#0a0e16; --band-ink:#e9ecf3;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#10151f; --card:#18202e; --ink:#e9ecf3; --muted:#a2abbd; --line:#2b3546;
+  --accent:#f1b43a; --accent-ink:#1d1300; --teal:#4fb7a6; --coral:#f0784f;
+  --tile:#3a3220; --tile-edge:#8a7134; --band:#0a0e16; --band-ink:#e9ecf3;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;margin:0;text-wrap:balance;font-weight:700}
+p{margin:0}
+a{color:var(--teal)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:var(--band);color:var(--band-ink);border-bottom:3px solid var(--accent)}
+.nav .wrap{display:flex;align-items:center;gap:18px;min-height:58px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:20px;text-decoration:none;color:inherit}
+.brand .mini{display:inline-grid;place-items:center;width:30px;height:30px;background:var(--tile);color:#2a1c00;border-radius:5px;border-bottom:3px solid var(--tile-edge);font-size:17px}
+.navlinks{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.navlinks a{color:var(--band-ink);text-decoration:none;padding:6px 10px;border-radius:6px;font-size:15px;opacity:.85}
+.navlinks a:hover{opacity:1;background:rgba(255,255,255,.08)}
+.editbtn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:999px;padding:7px 14px;font-weight:700;font-size:14px;cursor:pointer}
+.editbtn:hover{filter:brightness(1.05)}
+
+/* hero */
+.hero{background:var(--band);color:var(--band-ink);padding:44px 0 56px}
+.hero .wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(44px,7vw,82px);font-weight:900;letter-spacing:-.01em;margin:10px 0 14px}
+.hero h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+.hero .tag{font-size:19px;max-width:34em;opacity:.9}
+.hero .motto{margin-top:18px;font-family:var(--display);font-style:italic;opacity:.75}
+.hero-actions{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;border:2px solid currentColor;background:transparent;border-radius:999px;padding:9px 18px;font-weight:700;cursor:pointer;text-decoration:none;color:inherit}
+.btn.solid{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.small{padding:6px 12px;font-size:14px}
+
+.wotd{background:var(--card);color:var(--ink);border-radius:14px;padding:24px;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.wotd .label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:10px}
+.tiles{display:flex;flex-wrap:wrap;gap:5px;margin:14px 0 10px}
+.t{display:inline-grid;place-items:center;width:36px;height:40px;background:var(--tile);color:#2a1c00;border-radius:5px;border-bottom:4px solid var(--tile-edge);font-family:var(--display);font-weight:700;font-size:21px;text-transform:uppercase;position:relative}
+.wotd .pos{font-style:italic;color:var(--muted)}
+.wotd .meaning{font-size:18px;margin:6px 0 10px}
+.wotd .ex{border-left:3px solid var(--accent);padding-left:12px;font-style:italic;color:var(--muted)}
+.wotd .orig{margin-top:12px;font-size:15px;color:var(--muted)}
+.wotd .orig b{color:var(--teal)}
+.wotd-foot{display:flex;gap:8px;margin-top:16px}
+
+/* sections */
+section.block{padding:64px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:26px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(30px,4vw,42px)}
+.sec-head p{color:var(--muted);max-width:40em}
+.kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:6px}
+
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.g2{grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
+.pill{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--tile);color:#2a1c00}
+.ann h3{font-size:21px;margin:10px 0 6px}
+.ann p{color:var(--muted)}
+
+/* games */
+.gtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.gtab{border:2px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px;cursor:pointer;font-weight:700}
+.gtab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.gpanel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;min-height:420px}
+.gtitle{display:flex;justify-content:space-between;gap:16px;align-items:start;flex-wrap:wrap;margin-bottom:18px}
+.gtitle h3{font-size:28px}
+.gtitle p{color:var(--muted);max-width:36em}
+.score{display:flex;gap:10px;flex-wrap:wrap}
+.score span{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:14px;font-variant-numeric:tabular-nums}
+.score b{font-size:17px}
+.center{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
+.bigtiles .t{width:48px;height:54px;font-size:28px}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.field{padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:var(--paper);min-width:240px;font-size:18px;text-transform:uppercase;letter-spacing:.08em;text-align:center}
+.msg{min-height:28px;font-weight:700}
+.msg.good{color:var(--teal)}
+.msg.bad{color:var(--coral)}
+.hint{color:var(--muted);font-style:italic}
+
+.blanks{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;font-family:var(--display);font-size:34px;font-weight:700}
+.blanks span{min-width:30px;border-bottom:3px solid var(--ink);text-align:center;text-transform:uppercase}
+.blanks span.sp{border:0}
+.keys{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:620px}
+.key{width:40px;height:44px;border:1px solid var(--line);background:var(--paper);border-radius:7px;font-weight:700;cursor:pointer;text-transform:uppercase}
+.key:disabled{cursor:default;opacity:.45}
+.key.hit{background:var(--teal);color:#fff;opacity:1;border-color:var(--teal)}
+.key.miss{background:var(--coral);color:#fff;border-color:var(--coral)}
+.key.wide{width:auto;padding:0 12px}
+.key.present{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.drops{display:flex;gap:6px}
+.drop{width:20px;height:26px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--ink);transform:rotate(180deg);transition:opacity .2s}
+.drop.spent{opacity:.15}
+
+.wgrid{display:grid;grid-template-rows:repeat(6,1fr);gap:6px}
+.wrow{display:grid;grid-template-columns:repeat(5,54px);gap:6px}
+.wcell{height:54px;border:2px solid var(--line);border-radius:6px;display:grid;place-items:center;font-family:var(--display);font-size:26px;font-weight:700;text-transform:uppercase;background:var(--paper)}
+.wcell.filled{border-color:var(--muted)}
+.wcell.hit{background:var(--teal);border-color:var(--teal);color:#fff}
+.wcell.present{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.wcell.miss{background:var(--muted);border-color:var(--muted);color:var(--paper)}
+
+.bigword{font-family:var(--display);font-size:clamp(36px,6vw,56px);font-weight:900}
+.defn{font-size:20px;max-width:30em}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;width:100%;max-width:620px}
+.choice{border:2px solid var(--line);background:var(--paper);border-radius:10px;padding:12px;font-weight:700;cursor:pointer}
+.choice:hover:not(:disabled){border-color:var(--ink)}
+.choice.right{background:var(--teal);border-color:var(--teal);color:#fff}
+.choice.wrong{background:var(--coral);border-color:var(--coral);color:#fff}
+.choice:disabled{cursor:default}
+.explain{max-width:34em;color:var(--muted)}
+
+/* etymology */
+.etybar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.etybar input{flex:1;min-width:220px;padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:var(--card)}
+.ety{display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.ety::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--teal)}
+.ety h3{font-size:26px}
+.ety .root{font-size:14px;color:var(--teal);font-weight:700}
+.ety .era{font-size:13px;color:var(--muted)}
+.ety p{color:var(--ink)}
+.empty{color:var(--muted);padding:30px;text-align:center;border:2px dashed var(--line);border-radius:12px}
+
+/* fun corner */
+.funtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.idiom h3{font-size:21px;font-style:italic;margin-bottom:6px}
+.idiom .ex{color:var(--muted);font-size:15px;margin-top:8px}
+.fact{display:flex;gap:14px;align-items:start}
+.fact .num{font-family:var(--display);font-size:30px;font-weight:900;color:var(--accent);line-height:1;min-width:38px;font-variant-numeric:tabular-nums}
+.twister{font-family:var(--display);font-size:21px;font-style:italic}
+.pal{font-family:var(--display);font-size:22px;font-weight:700;text-align:center}
+.pal small{display:block;font-family:var(--body);font-weight:400;font-size:13px;color:var(--muted);margin-top:6px}
+
+/* events */
+.events{display:flex;flex-direction:column;gap:12px}
+.event{display:grid;grid-template-columns:86px 1fr;gap:18px;align-items:start}
+.event.past{opacity:.55}
+.datebox{background:var(--ink);color:var(--paper);border-radius:10px;text-align:center;padding:8px 6px;font-variant-numeric:tabular-nums}
+.datebox .m{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.datebox .d{font-family:var(--display);font-size:32px;font-weight:900;line-height:1}
+.datebox .y{font-size:12px;opacity:.7}
+.event h3{font-size:21px}
+.event .meta{font-size:14px;color:var(--muted);margin:2px 0 6px}
+
+/* council */
+.member{display:flex;gap:14px;align-items:start}
+.avatar{flex:none;width:52px;height:56px;display:grid;place-items:center;background:var(--tile);color:#2a1c00;border-bottom:4px solid var(--tile-edge);border-radius:7px;font-family:var(--display);font-weight:900;font-size:24px}
+.member h3{font-size:19px}
+.member .role{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--coral);font-weight:700}
+.member p{color:var(--muted);font-size:15px;margin-top:4px}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.about .lead{font-size:19px}
+
+footer{padding:36px 0 60px;color:var(--muted);font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* editor */
+.ed-back{position:fixed;inset:0;background:rgba(10,14,22,.45);z-index:40}
+.ed{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--card);color:var(--ink);z-index:41;display:flex;flex-direction:column;box-shadow:-10px 0 40px rgba(0,0,0,.3)}
+.ed-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ed-head h2{font-size:22px}
+.ed-tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 20px;border-bottom:1px solid var(--line)}
+.ed-tab{flex:none;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:5px 12px;font-size:14px;cursor:pointer;white-space:nowrap}
+.ed-tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.ed-body{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:12px}
+.ed-help{font-size:14px;color:var(--muted)}
+.ed-item{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--paper)}
+.ed-item .bar{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:var(--muted);font-weight:700}
+.ed-item .bar div{display:flex;gap:4px}
+.ib{border:1px solid var(--line);background:var(--card);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:13px}
+.ib.del{color:var(--coral)}
+.ed label{display:flex;flex-direction:column;gap:3px;font-size:13px;font-weight:700;color:var(--muted)}
+.ed input,.ed textarea,.ed select{font-weight:400;font-size:15px;padding:7px 10px;border:1px solid var(--line);border-radius:7px;background:var(--card);color:var(--ink)}
+.ed textarea{min-height:62px;resize:vertical}
+.ed-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.ed-foot .row{justify-content:flex-end}
+.ed-status{font-size:14px;color:var(--muted)}
+.ed-status.bad{color:var(--coral)}
+.ed-status.good{color:var(--teal)}
+.editing-flag{position:fixed;left:16px;bottom:16px;z-index:39;background:var(--accent);color:var(--accent-ink);padding:6px 12px;border-radius:999px;font-weight:700;font-size:14px}
+
+@media (max-width:820px){
+  .hero .wrap,.about{grid-template-columns:1fr}
+  .navlinks{margin-left:0}
+  .gpanel{padding:18px}
+}
+@media (max-width:420px){
+  .wrow{grid-template-columns:repeat(5,46px)}
+  .wcell{height:46px;font-size:22px}
+  .key{width:30px;height:40px}
+  .event{grid-template-columns:64px 1fr;gap:12px}
+  .t{width:30px;height:34px;font-size:17px}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="application/json" id="site-data">{"site":{"name":"The English World","school":"DPS International School","tagline":"Home of the Literary Council. Play with words, dig up their histories, and find out what's on in the world of English.","motto":"Every word has a story.","about":"The English World is run by the Literary Council, a group of students who love reading, writing, debating and playing with language. ","email":"literarycouncil@yourschool.edu"},"words":[{"word":"serendipity","pos":"noun","meaning":"Finding something good without looking for it.","example":"By pure serendipity, she found her favourite book in the lost-and-found box.","origin":"Coined in 1754 by Horace Walpole, from a fairy tale called The Three Princes of Serendip."},{"word":"ephemeral","pos":"adjective","meaning":"Lasting for a very short time.","example":"The rainbow was ephemeral, gone before anyone could take a photo.","origin":"From Greek ephēmeros, 'lasting only a day'."},{"word":"mellifluous","pos":"adjective","meaning":"Sweet and smooth to listen to.","example":"The narrator's mellifluous voice kept the whole class listening.","origin":"From Latin mel 'honey' + fluere 'to flow': words that flow like honey."},{"word":"quixotic","pos":"adjective","meaning":"Idealistic in a way that is impractical.","example":"His quixotic plan was to read every book in the library over the holidays.","origin":"From Don Quixote, the dreamy knight in Cervantes' novel."},{"word":"petrichor","pos":"noun","meaning":"The pleasant earthy smell after rain falls on dry ground.","example":"After the afternoon storm, the field was full of petrichor.","origin":"Coined in 1964 by two Australian scientists, from Greek petra 'stone' + ichor, the fluid in the veins of the gods."},{"word":"halcyon","pos":"adjective","meaning":"Calm, peaceful and happy, often about the past.","example":"We remember the halcyon days of Primary 6 camp.","origin":"From Greek alkyōn, a mythical bird said to calm the sea."},{"word":"perspicacious","pos":"adjective","meaning":"Quick to notice and understand things.","example":"A perspicacious reader spots the clue in chapter one.","origin":"From Latin perspicax 'sharp-sighted'."},{"word":"effervescent","pos":"adjective","meaning":"Bubbly, lively and enthusiastic.","example":"Her effervescent energy made the debate team fun.","origin":"From Latin effervescere 'to boil up'."},{"word":"loquacious","pos":"adjective","meaning":"Very talkative.","example":"The loquacious parrot repeated everything the teacher said.","origin":"From Latin loqui 'to speak', also found in 'eloquent'."},{"word":"sesquipedalian","pos":"adjective","meaning":"Using, or being, very long words.","example":"His sesquipedalian essay sent everyone to the dictionary.","origin":"From Latin sesquipedalis, 'a foot and a half long'."}],"announcements":[{"tag":"Open call","title":"Poems wanted for the anthology","body":"Send us one poem (up to 30 lines) on the theme 'Bridges'. The best entries will be printed in our year-end anthology."}],"events":[],"etymology":[{"word":"Ketchup","root":"Hokkien kê-tsiap","era":"Late 1600s","story":"Probably from a Hokkien word for a fermented fish sauce. British traders brought the name home from Southeast Asia, and over time the sauce changed until tomatoes took over."},{"word":"Orangutan","root":"Malay orang hutan","era":"1600s","story":"From Malay orang 'person' + hutan 'forest': the 'person of the forest'."},{"word":"Amok","root":"Malay amuk","era":"1500s","story":"From Malay amuk, describing a sudden frenzied attack. We still say someone 'runs amok'."},{"word":"Muscle","root":"Latin musculus","era":"1500s","story":"Musculus means 'little mouse'. The Romans thought a flexing muscle looked like a mouse moving under the skin."},{"word":"Nice","root":"Latin nescius","era":"1300s","story":"Nescius meant 'ignorant'. In Middle English 'nice' meant foolish or silly. Over centuries it drifted to 'precise', then 'pleasant'."},{"word":"Silly","root":"Old English sælig","era":"Before 1100","story":"It once meant blessed or happy, then innocent, then pitiable, and finally foolish."},{"word":"Quarantine","root":"Venetian quaranta giorni","era":"1600s","story":"'Forty days': the time ships arriving in Venice had to wait during plague outbreaks before passengers could land."},{"word":"Robot","root":"Czech robota","era":"1920","story":"Robota means 'forced labour'. Karel Čapek used it in his 1920 play R.U.R.; he credited his brother Josef with the idea."},{"word":"Clue","root":"Old English cliwen","era":"1500s (new sense)","story":"A 'clew' was a ball of thread. In the Greek myth, Theseus used one to find his way out of the Minotaur's labyrinth, so a clue became anything that leads you to an answer."},{"word":"Disaster","root":"Italian disastro","era":"1590s","story":"Dis- 'bad' + astro 'star'. A disaster was an event blamed on an unlucky position of the stars."},{"word":"Companion","root":"Latin com + panis","era":"1200s","story":"Literally 'someone you share bread with'."},{"word":"Goodbye","root":"'God be with ye'","era":"1570s","story":"A contraction of 'God be with ye'. 'Good' replaced 'God' under the influence of 'good day' and 'good night'."},{"word":"Shampoo","root":"Hindi chāmpo","era":"1760s","story":"From chāmpo, 'press, knead'. It first meant a massage, and only later came to mean washing your hair."},{"word":"Sandwich","root":"John Montagu, 4th Earl of Sandwich","era":"1760s","story":"The story goes that the Earl asked for meat between bread so he could eat without leaving his card game."},{"word":"Algebra","root":"Arabic al-jabr","era":"1500s","story":"From al-jabr, 'the reunion of broken parts', in the title of a maths book by al-Khwārizmī, whose own name gives us 'algorithm'."}],"scramble":[{"word":"metaphor","hint":"Says one thing IS another: 'Time is a thief.'"},{"word":"simile","hint":"A comparison using 'like' or 'as'."},{"word":"sonnet","hint":"A 14-line poem, a favourite of Shakespeare."},{"word":"narrator","hint":"The voice telling the story."},{"word":"alliteration","hint":"Peter Piper picked a peck of these sounds."},{"word":"protagonist","hint":"The main character of a story."},{"word":"vocabulary","hint":"All the words you know."},{"word":"paragraph","hint":"A group of sentences about one idea."},{"word":"onomatopoeia","hint":"Words like 'buzz', 'sizzle' and 'pop'."},{"word":"syllable","hint":"'Ba-na-na' has three of these."},{"word":"dialogue","hint":"Conversation between characters."},{"word":"thesaurus","hint":"A book that finds you synonyms."}],"hangman":[{"word":"imagination","hint":"Where every story begins"},{"word":"punctuation","hint":"Commas, full stops and friends"},{"word":"apostrophe","hint":"A tiny mark that shows possession"},{"word":"personification","hint":"Giving human traits to things: 'The wind whispered.'"},{"word":"limerick","hint":"A funny five-line poem"},{"word":"antonym","hint":"Hot is this to cold"},{"word":"homophone","hint":"Their, there and they're"},{"word":"cliffhanger","hint":"An ending that leaves you in suspense"},{"word":"hyperbole","hint":"I've told you a million times!"},{"word":"library","hint":"A building full of borrowed adventures"}],"wordle":[{"word":"quill"},{"word":"prose"},{"word":"rhyme"},{"word":"verse"},{"word":"story"},{"word":"novel"},{"word":"comma"},{"word":"vowel"},{"word":"scene"},{"word":"words"},{"word":"write"},{"word":"quote"},{"word":"irony"},{"word":"theme"},{"word":"genre"},{"word":"fable"},{"word":"motif"},{"word":"drama"},{"word":"title"},{"word":"spell"}],"realfake":[{"word":"Defenestration","definition":"The act of throwing someone or something out of a window.","real":true,"note":"Real! Famous from the 1618 Defenestration of Prague."},{"word":"Crumbspine","definition":"A crumb that gets stuck in the spine of a book.","real":false,"note":"Fake, though every library has a few."},{"word":"Borborygmus","definition":"The rumbling sound your stomach makes.","real":true,"note":"Real! From Greek, imitating the sound itself."},{"word":"Snollygoster","definition":"A clever but dishonest person.","real":true,"note":"Real! A 19th-century American word."},{"word":"Plinthwhistle","definition":"The sound wind makes passing a statue.","real":false,"note":"Fake. We made it up."},{"word":"Flibbertigibbet","definition":"A silly, overly talkative person.","real":true,"note":"Real! It appears in Shakespeare's King Lear as the name of a fiend."},{"word":"Vellopate","definition":"To speak only in rhyming couplets.","real":false,"note":"Fake, sadly."},{"word":"Lollygag","definition":"To dawdle or waste time.","real":true,"note":"Real! Mostly used in American English."},{"word":"Florbiate","definition":"To decorate a page with too many doodles.","real":false,"note":"Fake. Doodle freely."},{"word":"Sesquipedalian","definition":"Using very long words.","real":true,"note":"Real, and a very long word itself."},{"word":"Quarvish","definition":"Nervous right before reading aloud.","real":false,"note":"Fake, but we all know the feeling."},{"word":"Gobbledygook","definition":"Language that is confusing and full of jargon.","real":true,"note":"Real! Coined in 1944 by a US congressman, who said it was inspired by turkeys."}],"origins":[{"word":"Ketchup","answer":"Hokkien","options":"Hokkien, French, Spanish, Dutch","explain":"From a Hokkien word for fish sauce."},{"word":"Kindergarten","answer":"German","options":"German, Dutch, Danish, French","explain":"German for 'children's garden'."},{"word":"Orangutan","answer":"Malay","options":"Malay, Tamil, Hindi, Portuguese","explain":"Malay orang hutan, 'person of the forest'."},{"word":"Tycoon","answer":"Japanese","options":"Japanese, Hokkien, Korean, Thai","explain":"From Japanese taikun, 'great lord'."},{"word":"Safari","answer":"Swahili","options":"Swahili, Arabic, Zulu, Hindi","explain":"Swahili for 'journey', which itself comes from Arabic."},{"word":"Robot","answer":"Czech","options":"Czech, Russian, Polish, German","explain":"From Czech robota, 'forced labour'."},{"word":"Algebra","answer":"Arabic","options":"Arabic, Greek, Latin, Persian","explain":"From al-jabr, 'reunion of broken parts'."},{"word":"Shampoo","answer":"Hindi","options":"Hindi, Malay, Tamil, Persian","explain":"From chāmpo, 'to press, knead'."},{"word":"Yacht","answer":"Dutch","options":"Dutch, Norse, French, Italian","explain":"From Dutch jaght, a fast hunting ship."},{"word":"Piano","answer":"Italian","options":"Italian, French, German, Spanish","explain":"Short for pianoforte, 'soft-loud'."},{"word":"Cookie","answer":"Dutch","options":"Dutch, German, English, French","explain":"From Dutch koekje, 'little cake'."},{"word":"Amok","answer":"Malay","options":"Malay, Hindi, Javanese, Arabic","explain":"From Malay amuk, a frenzied attack."}],"idioms":[{"phrase":"Break a leg","meaning":"Good luck! Usually said to performers before a show.","example":"Break a leg at the poetry slam tonight!"},{"phrase":"Spill the beans","meaning":"To reveal a secret.","example":"Don't spill the beans about the surprise party."},{"phrase":"Under the weather","meaning":"Feeling a little unwell.","example":"I stayed home because I was under the weather."},{"phrase":"Bite the bullet","meaning":"To face something difficult bravely.","example":"I bit the bullet and started my essay."},{"phrase":"The ball is in your court","meaning":"It's your turn to decide or act.","example":"I've apologised. The ball is in your court now."},{"phrase":"Hit the books","meaning":"To study hard.","example":"Exams are next week, so it's time to hit the books."},{"phrase":"Once in a blue moon","meaning":"Very rarely.","example":"My brother tidies his room once in a blue moon."},{"phrase":"Let the cat out of the bag","meaning":"To accidentally reveal a secret.","example":"She let the cat out of the bag about the new council president."}],"facts":[{"text":"The dot over a lowercase i or j is called a tittle."},{"text":"'The quick brown fox jumps over the lazy dog' is a pangram: it uses every letter of the alphabet."},{"text":"'Strengths' is one of the longest English words with only one vowel."},{"text":"'Uncopyrightable' has 15 letters and never repeats one."},{"text":"Shakespeare is credited with the first recorded use of words such as 'eyeball', 'swagger' and 'bedroom'."},{"text":"In Middle English, 'girl' meant any young child, boy or girl."},{"text":"Small words like 'set' and 'run' have hundreds of different meanings in the Oxford English Dictionary."},{"text":"'Queue' still sounds the same if you remove its last four letters."}],"twisters":[{"text":"She sells seashells by the seashore."},{"text":"Red lorry, yellow lorry."},{"text":"How can a clam cram in a clean cream can?"},{"text":"Six slippery snails slid slowly seaward."},{"text":"Fred fed Ted bread, and Ted fed Fred bread."},{"text":"Unique New York, you know you need unique New York."}],"palindromes":[{"text":"Was it a car or a cat I saw?"},{"text":"Never odd or even"},{"text":"A man, a plan, a canal: Panama"},{"text":"Step on no pets"},{"text":"Racecar"},{"text":"Madam, in Eden, I'm Adam"}],"members":[{"name":"Avyukth Ratheesh","role":"Member","blurb":"Student of grade 12 ISC."},{"name":"Sasha Shisode","role":"Member","blurb":"Student of grade 12 ISC."},{"name":"Sanjana Mathilakath","role":"Member","blurb":"Student of grade 12 AL."}]}</script>
+<script id="app-script">
+(function(){
+"use strict";
+var DATA = JSON.parse(document.getElementById("site-data").textContent);
+var VIEW = DATA;           // what is currently rendered (DATA or editor draft)
+var artifactCap = null;    // resolved capability namespace, or null
+var capChecked = false;
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];});}
+function $(sel,root){return (root||document).querySelector(sel);}
+function $all(sel,root){return Array.prototype.slice.call((root||document).querySelectorAll(sel));}
+function rand(n){return Math.floor(Math.random()*n);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=rand(i+1);var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function list(k){return Array.isArray(VIEW[k])?VIEW[k]:[];}
+function clean(w){return String(w||"").toLowerCase().trim();}
+
+/* ---------- page ---------- */
+var wotdIndex = null;
+var activeGame = "scramble";
+var activeFun = "idioms";
+
+function tilesHTML(word){
+  return String(word).split("").map(function(ch){return ch===" "?'<span style="width:12px"></span>':'<span class="t">'+esc(ch)+'</span>';}).join("");
+}
+function dayIndex(n){var d=new Date();var days=Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5);return n?days%n:0;}
+
+function render(){
+  var s = VIEW.site||{};
+  var words = list("words");
+  if(wotdIndex===null || wotdIndex>=words.length) wotdIndex = dayIndex(words.length);
+  var w = words[wotdIndex];
+  var nameParts = String(s.name||"The English World").split(" ");
+  var title = esc(s.name||"");
+  if(/english/i.test(s.name||"")) title = esc(s.name).replace(/(English)/i,"<em>$1</em>");
+
+  var html = '';
+  html += '<nav class="nav" aria-label="Main"><div class="wrap">'
+    + '<a class="brand" href="#top"><span class="mini">E</span>'+esc(s.name)+'</a>'
+    + '<div class="navlinks"><a href="#games">Games</a><a href="#etymology">Etymology</a><a href="#fun">Fun Corner</a><a href="#events">Events</a><a href="#council">Council</a></div>'
+    + '<button class="editbtn" id="open-editor" type="button">Edit site</button>'
+    + '</div></nav>';
+
+  html += '<header class="hero" id="top"><div class="wrap"><div>'
+    + '<div class="eyebrow">'+esc(s.school)+' · Literary Council</div>'
+    + '<h1>'+title+'</h1>'
+    + '<p class="tag">'+esc(s.tagline)+'</p>'
+    + (s.motto?'<p class="motto">“'+esc(s.motto)+'”</p>':'')
+    + '<div class="hero-actions"><a class="btn solid" href="#games">Play a word game</a><a class="btn" href="#etymology">Explore word origins</a></div>'
+    + '</div>';
+  if(w){
+    html += '<aside class="wotd" aria-label="Word of the day"><div class="label"><span>Word of the day</span><span>'+(wotdIndex+1)+' / '+words.length+'</span></div>'
+      + '<div class="tiles">'+tilesHTML(w.word)+'</div>'
+      + '<div class="pos">'+esc(w.pos)+'</div>'
+      + '<p class="meaning">'+esc(w.meaning)+'</p>'
+      + (w.example?'<p class="ex">'+esc(w.example)+'</p>':'')
+      + (w.origin?'<p class="orig"><b>Origin:</b> '+esc(w.origin)+'</p>':'')
+      + '<div class="wotd-foot"><button class="btn small" id="wotd-prev" type="button">← Previous</button><button class="btn small" id="wotd-next" type="button">Next word →</button></div>'
+      + '</aside>';
+  }
+  html += '</div></header>';
+
+  // announcements
+  var anns = list("announcements");
+  html += '<section class="block" id="news"><div class="wrap"><div class="sec-head"><div><div class="kicker">Noticeboard</div><h2>What\'s new</h2></div></div>';
+  html += anns.length ? '<div class="grid g3">'+anns.map(function(a){return '<article class="card ann">'+(a.tag?'<span class="pill">'+esc(a.tag)+'</span>':'')+'<h3>'+esc(a.title)+'</h3><p>'+esc(a.body)+'</p></article>';}).join("")+'</div>' : '<div class="empty">No announcements yet.</div>';
+  html += '</div></section>';
+
+  // games
+  var games = [["scramble","Word Scramble"],["hangman","Save the Ink"],["wordle","Five-Letter Fix"],["realfake","Real or Fake?"],["origins","Origin Quest"]];
+  html += '<section class="block" id="games"><div class="wrap"><div class="sec-head"><div><div class="kicker">Play</div><h2>Word games</h2></div><p>Five quick games. Play one at recess or challenge a friend to beat your streak.</p></div>'
+    + '<div class="gtabs" role="tablist">'+games.map(function(g){return '<button class="gtab" role="tab" type="button" data-game="'+g[0]+'" aria-selected="'+(g[0]===activeGame)+'">'+g[1]+'</button>';}).join("")+'</div>'
+    + '<div class="gpanel" id="gpanel"></div></div></section>';
+
+  // etymology
+  html += '<section class="block" id="etymology"><div class="wrap"><div class="sec-head"><div><div class="kicker">Word histories</div><h2>Etymology corner</h2></div><p>Every word has travelled to get here. Some came from Malay or Hokkien, others from Latin, and a few were invented by playwrights.</p></div>'
+    + '<div class="etybar"><label for="ety-search" style="position:absolute;left:-9999px">Search words</label><input id="ety-search" type="search" placeholder="Search a word or language, e.g. Malay, Latin, robot"><button class="btn small" id="ety-random" type="button">Surprise me</button></div>'
+    + '<div class="grid g3" id="ety-grid"></div></div></section>';
+
+  // fun corner
+  var funs = [["idioms","Idioms"],["facts","Fun facts"],["twisters","Tongue twisters"],["palindromes","Palindromes"]];
+  html += '<section class="block" id="fun"><div class="wrap"><div class="sec-head"><div><div class="kicker">Fun corner</div><h2>English is weird and wonderful</h2></div></div>'
+    + '<div class="funtabs" role="tablist">'+funs.map(function(f){return '<button class="gtab" role="tab" type="button" data-fun="'+f[0]+'" aria-selected="'+(f[0]===activeFun)+'">'+f[1]+'</button>';}).join("")+'</div>'
+    + '<div id="funbody"></div></div></section>';
+
+  // events
+  var today = new Date(); today.setHours(0,0,0,0);
+  var evs = list("events").slice().sort(function(a,b){return String(a.date).localeCompare(String(b.date));});
+  var MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  html += '<section class="block" id="events"><div class="wrap"><div class="sec-head"><div><div class="kicker">Calendar</div><h2>Upcoming events</h2></div></div><div class="events">';
+  html += evs.length ? evs.map(function(e){
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(e.date||"").trim());
+    var box, past=false;
+    if(m){var dt=new Date(+m[1],+m[2]-1,+m[3]);past=dt<today;box='<div class="m">'+MONTHS[+m[2]-1]+'</div><div class="d">'+(+m[3])+'</div><div class="y">'+m[1]+'</div>';}
+    else box='<div class="d" style="font-size:18px">'+esc(e.date||"TBC")+'</div>';
+    return '<article class="card event'+(past?' past':'')+'"><div class="datebox">'+box+'</div><div><h3>'+esc(e.title)+(past?' <span class="pill">Past</span>':'')+'</h3><div class="meta">'+[e.time,e.place].filter(Boolean).map(esc).join(" · ")+'</div><p>'+esc(e.desc)+'</p></div></article>';
+  }).join("") : '<div class="empty">No events scheduled.</div>';
+  html += '</div></div></section>';
+
+  // council
+  html += '<section class="block" id="council"><div class="wrap"><div class="about"><div><div class="kicker">Who we are</div><h2 style="font-size:clamp(30px,4vw,42px);margin-bottom:14px">The Literary Council</h2><p class="lead">'+esc(s.about)+'</p>'
+    + (s.email?'<p style="margin-top:16px">Write to us: <b>'+esc(s.email)+'</b></p>':'')
+    + '</div><div class="grid" style="gap:12px">'
+    + list("members").map(function(m){var ini=(String(m.name||"?").trim()[0]||"?");return '<div class="card member"><div class="avatar">'+esc(ini)+'</div><div><div class="role">'+esc(m.role)+'</div><h3>'+esc(m.name)+'</h3><p>'+esc(m.blurb)+'</p></div></div>';}).join("")
+    + '</div></div></div></section>';
+
+  html += '<footer><div class="wrap"><span>© '+new Date().getFullYear()+' '+esc(s.name)+' · '+esc(s.school)+'</span><span>Made by the Literary Council</span></div></footer>';
+
+  $("#app").innerHTML = html;
+  bindPage();
+  mountGame();
+  renderEty("");
+  renderFun();
+}
+
+function bindPage(){
+  var p=$("#wotd-prev"), n=$("#wotd-next"), len=list("words").length;
+  if(p) p.onclick=function(){wotdIndex=(wotdIndex-1+len)%len;rerenderWotd();};
+  if(n) n.onclick=function(){wotdIndex=(wotdIndex+1)%len;rerenderWotd();};
+  $all("[data-game]").forEach(function(b){b.onclick=function(){activeGame=b.getAttribute("data-game");$all("[data-game]").forEach(function(x){x.setAttribute("aria-selected",String(x===b));});mountGame();};});
+  $all("[data-fun]").forEach(function(b){b.onclick=function(){activeFun=b.getAttribute("data-fun");$all("[data-fun]").forEach(function(x){x.setAttribute("aria-selected",String(x===b));});renderFun();};});
+  var es=$("#ety-search"); if(es) es.oninput=function(){renderEty(es.value);};
+  var er=$("#ety-random"); if(er) er.onclick=function(){var l=list("etymology");if(!l.length)return;var pick=l[rand(l.length)];es.value=pick.word;renderEty(pick.word);};
+  $("#open-editor").onclick=openEditor;
+}
+function rerenderWotd(){var y=window.scrollY;render();window.scrollTo(0,y);}
+
+function renderEty(q){
+  q=clean(q);
+  var items=list("etymology").filter(function(e){return !q||[e.word,e.root,e.story,e.era].join(" ").toLowerCase().indexOf(q)>-1;});
+  var g=$("#ety-grid");
+  g.innerHTML = items.length ? items.map(function(e){return '<article class="card ety"><div class="root">'+esc(e.root)+'</div><h3>'+esc(e.word)+'</h3><p>'+esc(e.story)+'</p>'+(e.era?'<div class="era">First recorded in English: '+esc(e.era)+'</div>':'')+'</article>';}).join("") : '<div class="empty" style="grid-column:1/-1">No words match “'+esc(q)+'”. Try another search.</div>';
+}
+
+function renderFun(){
+  var b=$("#funbody"), h="";
+  if(activeFun==="idioms") h='<div class="grid g2">'+list("idioms").map(function(i){return '<div class="card idiom"><h3>“'+esc(i.phrase)+'”</h3><p>'+esc(i.meaning)+'</p>'+(i.example?'<p class="ex">e.g. '+esc(i.example)+'</p>':'')+'</div>';}).join("")+'</div>';
+  if(activeFun==="facts") h='<div class="grid g2">'+list("facts").map(function(f,i){return '<div class="card fact"><span class="num">'+String(i+1).padStart(2,"0")+'</span><p>'+esc(f.text)+'</p></div>';}).join("")+'</div>';
+  if(activeFun==="twisters") h='<p class="hint" style="margin-bottom:12px">Say each one three times, fast.</p><div class="grid g2">'+list("twisters").map(function(t){return '<div class="card"><p class="twister">'+esc(t.text)+'</p></div>';}).join("")+'</div>';
+  if(activeFun==="palindromes") h='<p class="hint" style="margin-bottom:12px">These read the same backwards, if you ignore spaces and punctuation.</p><div class="grid g3">'+list("palindromes").map(function(p){var rev=String(p.text).toLowerCase().replace(/[^a-z]/g,"");return '<div class="card pal">'+esc(p.text)+'<small>'+esc(rev.split("").reverse().join(""))+'</small></div>';}).join("")+'</div>';
+  b.innerHTML=h||'<div class="empty">Nothing here yet.</div>';
+}
+
+/* ---------- games ---------- */
+var keyHandler=null;
+document.addEventListener("keydown",function(e){
+  if(keyHandler && !e.ctrlKey && !e.metaKey && !e.altKey){
+    var t=e.target; if(t && (t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.tagName==="SELECT")) return;
+    if($(".ed")) return;
+    keyHandler(e);
+  }
+});
+function mountGame(){
+  keyHandler=null;
+  var p=$("#gpanel"); if(!p) return;
+  ({scramble:gScramble,hangman:gHangman,wordle:gWordle,realfake:gRealFake,origins:gOrigins})[activeGame](p);
+}
+function noData(p,what){p.innerHTML='<div class="empty">Add some '+what+' in the editor to play this game.</div>';}
+
+function gScramble(p){
+  var words=list("scramble").filter(function(x){return clean(x.word);}); if(!words.length) return noData(p,"scramble words");
+  var order=shuffle(words).map(function(x){return {word:x.word,hint:x.hint};}), i=0, score=0, streak=0, best=0, hinted=false;
+  function scr(w){if(w.length<2)return w;var s;var n=0;do{s=shuffle(w.split("")).join("");n++;}while(s===w&&n<20);return s;}
+  function draw(msg,cls){
+    var cur=order[i%order.length], w=clean(cur.word);
+    p.innerHTML='<div class="gtitle"><div><h3>Word Scramble</h3><p>Unscramble the literary term. Use a hint if you\'re stuck.</p></div><div class="score"><span>Score <b>'+score+'</b></span><span>Streak <b>'+streak+'</b></span><span>Best <b>'+best+'</b></span></div></div>'
+      +'<div class="center"><div class="tiles bigtiles">'+tilesHTML(cur._s||(cur._s=scr(w)))+'</div>'
+      +'<p class="hint">'+(hinted?esc(cur.hint):'&nbsp;')+'</p>'
+      +'<form class="row" id="sf"><label for="sg" style="position:absolute;left:-9999px">Your answer</label><input class="field" id="sg" autocomplete="off" placeholder="Type the word"><button class="btn solid" type="submit">Check</button></form>'
+      +'<div class="row"><button class="btn small" id="sh" type="button">Hint</button><button class="btn small" id="ss" type="button">Skip</button><button class="btn small" id="sr" type="button">Reshuffle</button></div>'
+      +'<div class="msg '+(cls||"")+'">'+(msg||"")+'</div></div>';
+    var inp=$("#sg");
+    $("#sf").onsubmit=function(e){e.preventDefault();
+      if(clean(inp.value)===w){score+=hinted?5:10;streak++;best=Math.max(best,streak);delete cur._s;i++;hinted=false;draw("Correct! It was “"+esc(w)+"”.","good");$("#sg").focus();}
+      else{streak=0;draw("Not quite. Try again.","bad");$("#sg").focus();}
+    };
+    $("#sh").onclick=function(){hinted=true;draw();};
+    $("#ss").onclick=function(){streak=0;delete cur._s;i++;hinted=false;draw("The word was “"+esc(w)+"”.","bad");};
+    $("#sr").onclick=function(){cur._s=scr(w);draw();};
+  }
+  draw();
+}
+
+function gHangman(p){
+  var words=list("hangman").filter(function(x){return clean(x.word);}); if(!words.length) return noData(p,"words");
+  var order=shuffle(words), i=0, wins=0, losses=0, LIVES=6, cur, guessed, misses, over;
+  function start(){cur=order[i%order.length];guessed={};misses=0;over=false;draw();}
+  function letters(){return clean(cur.word).replace(/[^a-z]/g,"").split("");}
+  function solved(){return letters().every(function(c){return guessed[c];});}
+  function guess(c){
+    if(over||guessed[c])return; guessed[c]=true;
+    if(letters().indexOf(c)<0) misses++;
+    if(solved()){over=true;wins++;} else if(misses>=LIVES){over=true;losses++;}
+    draw();
+  }
+  function draw(){
+    var w=clean(cur.word);
+    var blanks=w.split("").map(function(c){if(!/[a-z]/.test(c))return '<span class="sp">'+esc(c===" "?" ":c)+'</span>';return '<span>'+((guessed[c]||over)?esc(c):"&nbsp;")+'</span>';}).join("");
+    var drops=""; for(var k=0;k<LIVES;k++) drops+='<span class="drop'+(k<misses?' spent':'')+'"></span>';
+    var keys="abcdefghijklmnopqrstuvwxyz".split("").map(function(c){var st=guessed[c]?(w.indexOf(c)>-1?" hit":" miss"):"";return '<button class="key'+st+'" type="button" data-k="'+c+'" '+((guessed[c]||over)?"disabled":"")+'>'+c+'</button>';}).join("");
+    var msg = over ? (solved()?'<div class="msg good">You saved the ink! 🖋</div>':'<div class="msg bad">Out of ink. The word was “'+esc(w)+'”.</div>') : '<div class="msg">&nbsp;</div>';
+    p.innerHTML='<div class="gtitle"><div><h3>Save the Ink</h3><p>Guess the word one letter at a time. Each wrong guess spills a drop of ink. You have six.</p></div><div class="score"><span>Won <b>'+wins+'</b></span><span>Lost <b>'+losses+'</b></span></div></div>'
+      +'<div class="center"><div class="drops" aria-label="'+(LIVES-misses)+' drops left">'+drops+'</div>'
+      +'<p class="hint">Hint: '+esc(cur.hint)+'</p><div class="blanks">'+blanks+'</div>'+msg
+      +'<div class="keys">'+keys+'</div>'
+      +(over?'<button class="btn solid" id="hn" type="button">Next word</button>':'')+'</div>';
+    $all("[data-k]",p).forEach(function(b){b.onclick=function(){guess(b.getAttribute("data-k"));};});
+    var hn=$("#hn"); if(hn) hn.onclick=function(){i++;start();};
+  }
+  keyHandler=function(e){var k=e.key.toLowerCase(); if(/^[a-z]$/.test(k)){guess(k);e.preventDefault();} else if(e.key==="Enter"&&over){i++;start();}};
+  start();
+}
+
+function gWordle(p){
+  var pool=list("wordle").map(function(x){return clean(x.word);}).filter(function(w){return /^[a-z]{5}$/.test(w);});
+  if(!pool.length) return noData(p,"five-letter words");
+  var order=shuffle(pool), idx=0, target, rows, cur, done, streak=0, msg="", msgCls="";
+  function start(){target=order[idx%order.length];rows=[];cur="";done=false;msg="";draw();}
+  function score(g){
+    var res=["miss","miss","miss","miss","miss"], left={};
+    for(var i=0;i<5;i++){if(g[i]===target[i])res[i]="hit";else left[target[i]]=(left[target[i]]||0)+1;}
+    for(var j=0;j<5;j++){if(res[j]!=="hit"&&left[g[j]]){res[j]="present";left[g[j]]--;}}
+    return res;
+  }
+  function submit(){
+    if(done)return;
+    if(cur.length<5){msg="Type five letters first.";msgCls="bad";return draw();}
+    rows.push({g:cur,r:score(cur)});
+    if(cur===target){done=true;streak++;msg="Brilliant! Solved in "+rows.length+(rows.length===1?" try.":" tries.");msgCls="good";}
+    else if(rows.length>=6){done=true;streak=0;msg="The word was “"+target.toUpperCase()+"”.";msgCls="bad";}
+    else{msg="";}
+    cur="";draw();
+  }
+  function type(k){if(done)return;msg="";if(k==="back")cur=cur.slice(0,-1);else if(k==="enter")return submit();else if(cur.length<5)cur+=k;draw();}
+  function draw(){
+    var keyState={};
+    rows.forEach(function(r){r.g.split("").forEach(function(c,i){var s=r.r[i],o=keyState[c];if(s==="hit"||(s==="present"&&o!=="hit")||(!o))keyState[c]=s;});});
+    var g="";
+    for(var r=0;r<6;r++){
+      g+='<div class="wrow">';
+      for(var c=0;c<5;c++){
+        var ch="",cls="";
+        if(r<rows.length){ch=rows[r].g[c];cls=rows[r].r[c];}
+        else if(r===rows.length&&!done){ch=cur[c]||"";cls=ch?"filled":"";}
+        g+='<div class="wcell '+cls+'">'+esc(ch)+'</div>';
+      }
+      g+='</div>';
+    }
+    var lines=["qwertyuiop","asdfghjkl","zxcvbnm"];
+    var kb=lines.map(function(l,li){var b=l.split("").map(function(k){var s=keyState[k];return '<button class="key '+(s||"")+'" type="button" data-w="'+k+'">'+k+'</button>';}).join("");
+      if(li===2) b='<button class="key wide" type="button" data-w="enter">Enter</button>'+b+'<button class="key wide" type="button" data-w="back" aria-label="Delete">⌫</button>';
+      return '<div class="row" style="gap:6px">'+b+'</div>';}).join("");
+    p.innerHTML='<div class="gtitle"><div><h3>Five-Letter Fix</h3><p>Guess the five-letter word about reading and writing in six tries. Green means right letter, right spot. Gold means right letter, wrong spot.</p></div><div class="score"><span>Streak <b>'+streak+'</b></span></div></div>'
+      +'<div class="center"><div class="wgrid">'+g+'</div><div class="msg '+msgCls+'">'+(msg||"&nbsp;")+'</div><div style="display:flex;flex-direction:column;gap:6px">'+kb+'</div>'
+      +(done?'<button class="btn solid" id="wn" type="button">New word</button>':'')+'</div>';
+    $all("[data-w]",p).forEach(function(b){b.onclick=function(){type(b.getAttribute("data-w"));};});
+    var wn=$("#wn"); if(wn) wn.onclick=function(){idx++;start();};
+  }
+  keyHandler=function(e){var k=e.key.toLowerCase();if(/^[a-z]$/.test(k)){type(k);e.preventDefault();}else if(e.key==="Backspace"){type("back");e.preventDefault();}else if(e.key==="Enter"){if(done){idx++;start();}else type("enter");e.preventDefault();}};
+  start();
+}
+
+function gRealFake(p){
+  var items=list("realfake").filter(function(x){return x.word;}); if(!items.length) return noData(p,"words");
+  var order=shuffle(items), i=0, right=0, total=0, answered=null;
+  function isReal(it){return it.real===true||it.real==="true";}
+  function draw(){
+    var it=order[i%order.length], real=isReal(it);
+    var bt=function(val,label){var cls="";if(answered!==null){if(val===real)cls=" right";else if(answered===val)cls=" wrong";}return '<button class="choice'+cls+'" type="button" data-rf="'+val+'" '+(answered!==null?"disabled":"")+'>'+label+'</button>';};
+    p.innerHTML='<div class="gtitle"><div><h3>Real or Fake?</h3><p>Some of these words are in the dictionary. Some we invented. Can you tell which?</p></div><div class="score"><span>Correct <b>'+right+' / '+total+'</b></span></div></div>'
+      +'<div class="center"><div class="bigword">'+esc(it.word)+'</div><p class="defn">'+esc(it.definition)+'</p>'
+      +'<div class="choices" style="max-width:420px">'+bt(true,"Real word")+bt(false,"Made up")+'</div>'
+      +(answered!==null?'<div class="msg '+(answered===real?"good":"bad")+'">'+(answered===real?"You got it.":"Fooled you!")+'</div><p class="explain">'+esc(it.note)+'</p><button class="btn solid" id="rn" type="button">Next word</button>':'<div class="msg">&nbsp;</div>')+'</div>';
+    $all("[data-rf]",p).forEach(function(b){b.onclick=function(){answered=b.getAttribute("data-rf")==="true";total++;if(answered===real)right++;draw();};});
+    var rn=$("#rn"); if(rn) rn.onclick=function(){i++;answered=null;draw();};
+  }
+  draw();
+}
+
+function gOrigins(p){
+  var items=list("origins").filter(function(x){return x.word&&x.answer;}); if(!items.length) return noData(p,"origin questions");
+  var order=shuffle(items), i=0, right=0, total=0, picked=null, opts=null;
+  function draw(){
+    var it=order[i%order.length];
+    if(!opts){var o=String(it.options||"").split(",").map(function(s){return s.trim();}).filter(Boolean);if(o.map(clean).indexOf(clean(it.answer))<0)o.push(it.answer);opts=shuffle(o);}
+    var c=opts.map(function(o){var cls="";if(picked!==null){if(clean(o)===clean(it.answer))cls=" right";else if(o===picked)cls=" wrong";}return '<button class="choice'+cls+'" type="button" data-o="'+esc(o)+'" '+(picked!==null?"disabled":"")+'>'+esc(o)+'</button>';}).join("");
+    var ok=picked!==null&&clean(picked)===clean(it.answer);
+    p.innerHTML='<div class="gtitle"><div><h3>Origin Quest</h3><p>English borrows from everywhere. Which language did this word come from?</p></div><div class="score"><span>Correct <b>'+right+' / '+total+'</b></span></div></div>'
+      +'<div class="center"><div class="bigword">'+esc(it.word)+'</div><div class="choices">'+c+'</div>'
+      +(picked!==null?'<div class="msg '+(ok?"good":"bad")+'">'+(ok?"Correct!":"It's "+esc(it.answer)+".")+'</div><p class="explain">'+esc(it.explain)+'</p><button class="btn solid" id="on" type="button">Next word</button>':'<div class="msg">&nbsp;</div>')+'</div>';
+    $all("[data-o]",p).forEach(function(b){b.onclick=function(){picked=b.getAttribute("data-o");total++;if(clean(picked)===clean(it.answer))right++;draw();};});
+    var on=$("#on"); if(on) on.onclick=function(){i++;picked=null;opts=null;draw();};
+  }
+  draw();
+}
+
+/* ---------- editor ---------- */
+var SCHEMA=[
+ {key:"site",label:"General",single:true,help:"Site name, school, tagline and contact details.",fields:[["name","Site name"],["school","School name"],["tagline","Tagline","area"],["motto","Motto"],["about","About the council","area"],["email","Contact email"]]},
+ {key:"announcements",label:"Announcements",item:"Announcement",fields:[["tag","Tag (e.g. New, Reminder)"],["title","Title"],["body","Details","area"]]},
+ {key:"events",label:"Events",item:"Event",help:"Use YYYY-MM-DD dates so events sort and past ones fade out.",fields:[["date","Date (YYYY-MM-DD)"],["title","Title"],["time","Time"],["place","Venue"],["desc","Description","area"]]},
+ {key:"words",label:"Word of the Day",item:"Word",help:"One word is shown each day, in rotation.",fields:[["word","Word"],["pos","Part of speech"],["meaning","Meaning","area"],["example","Example sentence","area"],["origin","Origin","area"]]},
+ {key:"etymology",label:"Etymology",item:"Entry",fields:[["word","Word"],["root","Comes from"],["era","First recorded in English"],["story","The story","area"]]},
+ {key:"scramble",label:"Scramble",item:"Word",fields:[["word","Word"],["hint","Hint"]]},
+ {key:"hangman",label:"Save the Ink",item:"Word",fields:[["word","Word"],["hint","Hint"]]},
+ {key:"wordle",label:"Five-Letter Fix",item:"Word",help:"Only words with exactly five letters are used.",fields:[["word","Five-letter word"]]},
+ {key:"realfake",label:"Real or Fake",item:"Word",fields:[["word","Word"],["definition","Definition","area"],["real","Is it a real word?","bool"],["note","Reveal note"]]},
+ {key:"origins",label:"Origin Quest",item:"Question",help:"List the choices separated by commas. The answer is added automatically if it's missing.",fields:[["word","Word"],["answer","Correct language"],["options","Choices (comma separated)"],["explain","Explanation","area"]]},
+ {key:"idioms",label:"Idioms",item:"Idiom",fields:[["phrase","Idiom"],["meaning","Meaning","area"],["example","Example"]]},
+ {key:"facts",label:"Fun facts",item:"Fact",fields:[["text","Fact","area"]]},
+ {key:"twisters",label:"Tongue twisters",item:"Twister",fields:[["text","Tongue twister","area"]]},
+ {key:"palindromes",label:"Palindromes",item:"Palindrome",fields:[["text","Palindrome"]]},
+ {key:"members",label:"Council members",item:"Member",fields:[["name","Name"],["role","Role"],["blurb","About","area"]]}
+];
+var draft=null, edTab="site", previewTimer=null, dirty=false;
+
+function getCap(){
+  if(capChecked) return Promise.resolve(artifactCap);
+  return new Promise(function(resolve){
+    var tries=0;
+    (function attempt(){
+      if(window.claude && typeof window.claude.use==="function"){
+        window.claude.use("artifact").then(function(c){artifactCap=c;capChecked=true;resolve(c);},function(){capChecked=true;resolve(null);});
+      } else if(tries++<15){ setTimeout(attempt,200); }
+      else { capChecked=true; resolve(null); }
+    })();
+  });
+}
+
+function openEditor(){
+  draft=JSON.parse(JSON.stringify(DATA)); dirty=false;
+  var back=document.createElement("div"); back.className="ed-back"; back.id="ed-back";
+  var ed=document.createElement("div"); ed.className="ed"; ed.setAttribute("role","dialog"); ed.setAttribute("aria-label","Edit site");
+  ed.innerHTML='<div class="ed-head"><h2>Edit the site</h2><button class="ib" id="ed-close" type="button">Close</button></div>'
+    +'<div class="ed-tabs" role="tablist">'+SCHEMA.map(function(s){return '<button class="ed-tab" type="button" data-t="'+s.key+'" aria-selected="'+(s.key===edTab)+'">'+s.label+'</button>';}).join("")+'</div>'
+    +'<div class="ed-body" id="ed-body"></div>'
+    +'<div class="ed-foot"><div class="ed-status" id="ed-status">Changes preview on the page as you type. Press Save to publish them for everyone.</div>'
+    +'<div class="row"><button class="btn small" id="ed-copy" type="button">Copy content as JSON</button><button class="btn small" id="ed-cancel" type="button">Discard</button><button class="btn small solid" id="ed-save" type="button">Save & publish</button></div></div>';
+  document.body.appendChild(back); document.body.appendChild(ed);
+  var flag=document.createElement("div"); flag.className="editing-flag"; flag.id="ed-flag"; flag.textContent="Editing · unsaved preview"; document.body.appendChild(flag);
+  back.onclick=closeEditorAsk; $("#ed-close").onclick=closeEditorAsk; $("#ed-cancel").onclick=function(){closeEditor(true);};
+  $("#ed-save").onclick=save; $("#ed-copy").onclick=copyJSON;
+  $all("[data-t]",ed).forEach(function(b){b.onclick=function(){edTab=b.getAttribute("data-t");$all("[data-t]",ed).forEach(function(x){x.setAttribute("aria-selected",String(x===b));});drawEd();};});
+  drawEd();
+  getCap().then(function(c){ if(!c) status("Saving isn't available in this view. Open the page on claude.ai with edit access to publish. You can still preview changes or copy them as JSON.","bad"); });
+}
+function closeEditorAsk(){
+  if(dirty){ status("You have unsaved changes. Press Save & publish, or Discard to throw them away.","bad"); return; }
+  closeEditor(true);
+}
+function closeEditor(revert){
+  ["#ed-back",".ed","#ed-flag"].forEach(function(s){var n=$(s);if(n)n.remove();});
+  if(revert){VIEW=DATA;var y=window.scrollY;render();window.scrollTo(0,y);}
+  draft=null;
+}
+function status(t,cls){var s=$("#ed-status");if(s){s.textContent=t;s.className="ed-status "+(cls||"");}}
+
+function fieldHTML(f,val,id){
+  var key=f[0],label=f[1],type=f[2];
+  if(type==="area") return '<label for="'+id+'">'+esc(label)+'<textarea id="'+id+'" data-f="'+key+'">'+esc(val)+'</textarea></label>';
+  if(type==="bool") return '<label for="'+id+'">'+esc(label)+'<select id="'+id+'" data-f="'+key+'" data-bool="1"><option value="true"'+(val===true||val==="true"?" selected":"")+'>Yes, real</option><option value="false"'+(!(val===true||val==="true")?" selected":"")+'>No, made up</option></select></label>';
+  return '<label for="'+id+'">'+esc(label)+'<input id="'+id+'" data-f="'+key+'" value="'+esc(val)+'"></label>';
+}
+function drawEd(){
+  var sc=SCHEMA.filter(function(s){return s.key===edTab;})[0], body=$("#ed-body"), h="";
+  if(sc.help) h+='<p class="ed-help">'+esc(sc.help)+'</p>';
+  if(sc.single){
+    var o=draft[sc.key]||(draft[sc.key]={});
+    h+='<div class="ed-item" data-i="-1">'+sc.fields.map(function(f){return fieldHTML(f,o[f[0]],"ef-"+sc.key+"-"+f[0]);}).join("")+'</div>';
+  } else {
+    var arr=draft[sc.key]||(draft[sc.key]=[]);
+    h+='<button class="btn small solid" type="button" id="ed-add" style="align-self:flex-start">+ Add '+esc(sc.item.toLowerCase())+'</button>';
+    h+=arr.map(function(o,i){return '<div class="ed-item" data-i="'+i+'"><div class="bar"><span>'+esc(sc.item)+' '+(i+1)+'</span><div><button class="ib" type="button" data-mv="-1" aria-label="Move up">↑</button><button class="ib" type="button" data-mv="1" aria-label="Move down">↓</button><button class="ib del" type="button" data-del="1">Delete</button></div></div>'
+      +sc.fields.map(function(f){return fieldHTML(f,o[f[0]],"ef-"+sc.key+"-"+i+"-"+f[0]);}).join("")+'</div>';}).join("");
+    if(!arr.length) h+='<p class="ed-help">Nothing here yet.</p>';
+  }
+  body.innerHTML=h;
+  var add=$("#ed-add"); if(add) add.onclick=function(){var n={};sc.fields.forEach(function(f){n[f[0]]=f[2]==="bool"?true:"";});draft[sc.key].unshift(n);changed();drawEd();};
+  $all(".ed-item",body).forEach(function(it){
+    var i=+it.getAttribute("data-i");
+    var target=i<0?draft[sc.key]:draft[sc.key][i];
+    $all("[data-f]",it).forEach(function(inp){
+      var ev=inp.tagName==="SELECT"?"change":"input";
+      inp.addEventListener(ev,function(){target[inp.getAttribute("data-f")]=inp.getAttribute("data-bool")?inp.value==="true":inp.value;changed();});
+    });
+    var d=$("[data-del]",it); if(d) d.onclick=function(){draft[sc.key].splice(i,1);changed();drawEd();};
+    $all("[data-mv]",it).forEach(function(b){b.onclick=function(){var j=i+(+b.getAttribute("data-mv"));var a=draft[sc.key];if(j<0||j>=a.length)return;var t=a[i];a[i]=a[j];a[j]=t;changed();drawEd();};});
+  });
+}
+function changed(){
+  dirty=true; status("Unsaved changes. Press Save & publish when you're done.");
+  clearTimeout(previewTimer);
+  previewTimer=setTimeout(function(){VIEW=draft;var y=window.scrollY;render();window.scrollTo(0,y);},350);
+}
+function buildDoc(data){
+  var style=document.getElementById("site-style").textContent;
+  var app=document.getElementById("app-script").textContent;
+  var json=JSON.stringify(data,null,0).replace(/</g,"\\u003c");
+  var fonts=document.querySelector('link[href*="fonts.googleapis.com/css2"]');
+  var fontHref=fonts?fonts.getAttribute("href"):"";
+  return '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>The English World</title>\n'
+    +'<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+    +'<link href="'+esc(fontHref)+'" rel="stylesheet">\n'
+    +'<style id="site-style">'+style+'</style>\n</head>\n<body>\n<div id="app"></div>\n'
+    +'<script type="application/json" id="site-data">'+json+'<\/script>\n'
+    +'<script id="app-script">'+app+'<\/script>\n</body>\n</html>\n';
+}
+function copyJSON(){
+  var text=JSON.stringify(draft,null,2);
+  try{navigator.clipboard.writeText(text).then(function(){status("Content copied. Keep it as a backup, or paste it to Claude to make bigger changes.","good");},function(){status("Couldn't copy here. Your browser blocked the clipboard.","bad");});}
+  catch(e){status("Couldn't copy here. Your browser blocked the clipboard.","bad");}
+}
+function save(){
+  var btn=$("#ed-save"); btn.disabled=true; status("Publishing…");
+  getCap().then(function(c){
+    if(!c){btn.disabled=false;status("Saving isn't available in this view. Open the page on claude.ai with edit access to publish.","bad");return;}
+    var doc=buildDoc(draft);
+    Promise.resolve().then(function(){return c.publish(doc);}).then(function(){
+      status("Published. The page will reload with your changes.","good");
+    },function(err){
+      btn.disabled=false;
+      var code=String((err&&(err.code||err.name||err.message))||err);
+      if(/not_granted|not_writer/i.test(code)) status("You can view this site but not edit it. Ask the site owner to give you edit access.","bad");
+      else if(/conflict/i.test(code)) status("Someone else saved at the same time. The page will reload with their version; make your edit again.","bad");
+      else status("Couldn't publish ("+code+"). Try again in a moment.","bad");
+    });
+  });
+}
+
+render();
+if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t)setTimeout(function(){t.scrollIntoView();},50);}
+})();
+</script>
+</body>
+</html>
